@@ -105,11 +105,11 @@ std::ofstream outFile("file.bin", std::ios::binary);
 За да запишем данни в бинарен файл, използваме метода `.write`. Той очаква указател към данните и броя байтове, които да запише:
 ```cpp
 int number = 12345;
-outFile.write(reinterpret_cast<char*>(&number), sizeof(number));
+outFile.write(reinterpret_cast<const char*>(&number), sizeof(number));
 ```
 
 Тук:
-- `reinterpret_cast<char*>` преобразува указателя към типа `char*`, тъй като `.write()` работи с байтове.
+- `reinterpret_cast<const char*>` преобразува указателя към типа `const char*`, тъй като `.write()` работи с байтове, и очаква като първи параметър тип `const char*`
 - `sizeof(number)` дава броя байтове, които трябва да се запишат.
 
 ---
@@ -128,7 +128,7 @@ struct Data
 ```cpp
 Data data {5, 0.03, 'G'};
 
-outFile.write(reinterpret_cast<char*>(&data), sizeof(data));
+outFile.write(reinterpret_cast<const char*>(&data), sizeof(data));
 ```
 
 *Важно: padding съшествува и когато записваме обекти във файлове. В този случай, имаме alignment от 8 байта, и след `number` има 4 байта padding, а след `letter` - 7 байта*

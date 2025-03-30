@@ -48,14 +48,14 @@ float Triangle::calculatePerimeter() const
 	return a + b + c;
 }
 
-float Triangle::calculateSmallR() const
+float Triangle::calculateInscribedRadius() const
 {
 	float s = calculatePerimeter() / 2.0f;
 
-	return calculateArea() / sqrt(s);
+	return calculateArea() / s;
 }
 
-float Triangle::calculateBigR() const
+float Triangle::calculateCircumscribedRadius() const
 {
 	return (a * b * c) / (4 * calculateArea());
 }

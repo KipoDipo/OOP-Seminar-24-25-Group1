@@ -4,7 +4,7 @@
 R = \frac{abc}{4\sqrt{s(s-a)(s-b)(s-c)}}
 ```
 ```math
-r = \sqrt{\frac{s(s-a)(s-b)(s-c)}{s}}
+r = \frac{\sqrt{s(s-a)(s-b)(s-c)}}{s}
 ```
 
 # Задача 2

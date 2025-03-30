@@ -7,6 +7,6 @@ int main()
 
 	std::cout << t.calculatePerimeter() << '\n';
 	std::cout << t.calculateArea() << '\n';
-	std::cout << t.calculateBigR() << '\n';
-	std::cout << t.calculateSmallR() << '\n';
+	std::cout << t.calculateInscribedRadius() << '\n';
+	std::cout << t.calculateCircumscribedRadius() << '\n';
 }

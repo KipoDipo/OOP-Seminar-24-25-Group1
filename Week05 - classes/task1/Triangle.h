@@ -15,8 +15,8 @@ public:
 
 	float calculateArea() const;
 	float calculatePerimeter() const;
-	float calculateSmallR() const;
-	float calculateBigR() const;
+	float calculateInscribedRadius() const;
+	float calculateCircumscribedRadius() const;
 
 private:
 	float a, b, c;

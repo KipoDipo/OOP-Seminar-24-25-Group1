@@ -37,7 +37,7 @@ class Person
 public:
     Person(const char* name, int age)
     {
-        this->name = new char[strlen(name) + 1];
+        this->name = new char[strlen(name) + 1] {};
         strcpy(this->name, name);
         this->age = age;
     }
@@ -67,7 +67,7 @@ class Person
 public:
     Person(const char* name, int age)
     {
-        this->name = new char[strlen(name) + 1];
+        this->name = new char[strlen(name) + 1] {};
         strcpy(this->name, name);
         this->age = age;
     }
@@ -177,7 +177,7 @@ class Person
 public:
     Person(const char* name, int age)
     {
-        this->name = new char[strlen(name) + 1];
+        this->name = new char[strlen(name) + 1] {};
         strcpy(this->name, name);
         this->age = age;
     }
@@ -206,13 +206,13 @@ class Person
 public:
     Person(const char* name, int age)
     {
-        this->name = new char[strlen(name) + 1];
+        this->name = new char[strlen(name) + 1] {};
         strcpy(this->name, name);
         this->age = age;
     }
     Person(const Person& other)
     {
-        this->name = new char[strlen(other.name) + 1];
+        this->name = new char[strlen(other.name) + 1] {};
         strcpy(this->name, other.name);
         this->age = other.age;
     }
@@ -261,7 +261,7 @@ public:
     
     void operator=(const Person& other)
     {
-        this->name = new char[strlen(other.name) + 1];
+        this->name = new char[strlen(other.name) + 1] {};
         strcpy(this->name, other.name);
         this->age = other.name
     }
@@ -294,7 +294,7 @@ public:
     void operator=(const Person& other)
     {
         delete[] this->name;
-        this->name = new char[strlen(other.name) + 1];
+        this->name = new char[strlen(other.name) + 1] {};
         strcpy(this->name, other.name);
         this->age = other.name
     }
@@ -325,7 +325,7 @@ public:
         if (this != &other)
         {
             delete[] this->name;
-            this->name = new char[strlen(other.name) + 1];
+            this->name = new char[strlen(other.name) + 1] {};
             strcpy(this->name, other.name);
             this->age = other.name
         }
@@ -361,7 +361,7 @@ public:
         if (this != &other)
         {
             delete[] this->name;
-            this->name = new char[strlen(other.name) + 1];
+            this->name = new char[strlen(other.name) + 1] {};
             strcpy(this->name, other.name);
             this->age = other.name
         }
@@ -434,7 +434,7 @@ public:
 
     Person(const char* name, int age)
     {
-        this->name = new char[strlen(name) + 1];
+        this->name = new char[strlen(name) + 1] {};
         strcpy(this->name, name);
         this->age = age;
     }
@@ -459,7 +459,7 @@ public:
 private:
     void copy(const Person& other)
     {
-        this->name = new char[strlen(other.name) + 1];
+        this->name = new char[strlen(other.name) + 1] {};
         strcpy(this->name, other.name);
         this->age = other.name
     }

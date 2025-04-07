@@ -373,7 +373,127 @@ public:
 };
 ```
 
-До това се свежда най-типичната имплементация на operator=.
+До това се свежда най-типичната (с [Basic Exception Guarantee](https://en.cppreference.com/w/cpp/language/exceptions)) имплементация на operator=.
+
+## Изключения (exceptions)
+Изключенията прекъсват изпълнението на програмата докато не бъдат "хванати". Ако няма код, който да хване това прекъсване, изпълнението на програмата приключва изцяло. Изключенията могат да представляват на практика всичко - int, char, Person и т.н.. 
+
+```cpp
+float div(float dividend, float divisor)
+{
+    if (divisor == 0)
+        throw "Can't devide by 0";
+
+    return dividend / divisor;
+}
+```
+
+Ако сега извикаме тази функция, и не вземем мерки за изключнието, програмата ще прекъсне своето изпълнение.
+
+```cpp
+int main()
+{
+    float result = div(10, 0);
+
+    std::cout << "Hello, world!";
+}
+```
+
+Изход:
+```
+```
+
+За да хванем и обработим грешка, използваме т.нар. `try/catch` блок. В `try` слагаме израза, който очакваме да хвърли изключението, а в `catch` указваме какъв е типът на данни, които очакваме да получим в резултат на изключението (в този случай `const char*`), след което обработваме грешката. 
+
+
+```cpp
+int main()
+{
+    try
+    {
+        float result = div(10, 0);
+    }
+    catch (const char* message)
+    {
+        std::cout << "An error occured: " << message << '\n';
+    }
+
+    std::cout << "Hello, world!";
+}
+```
+
+Изход:
+```
+An error occured: Can't devide by 0
+Hello, world!
+```
+
+Ако не знаем какъв е типът, или искаме просто да хванем каква да е грешка, можем да използваме и следния синтаксис:
+```cpp
+int main()
+{
+    try
+    {
+        float result = div(10, 0);
+    }
+    catch (int code)
+    {
+        std::cout << "An error occured with code: " << code << '\n';
+    }
+    catch (const char* message)
+    {
+        std::cout << "An error occured: " << message << '\n';
+    }
+    catch (...)
+    {
+        std::cout << "An error occured!\n";
+    }
+
+    std::cout << "Hello, world!";
+}
+```
+
+Можем да имаме колкото искаме `catch` блокове, като ако използваме `(...)`, той трябва да е най-накрая, иначе ще бъде прихванат първи.
+
+```cpp
+int main()
+{
+    try
+    {
+        float result = div(10, 0);
+    }
+    catch (...)
+    {
+        std::cout << "An error occured!\n";
+    }
+
+    std::cout << "Hello, world!";
+}
+```
+
+### При класовете
+Ако се хвърли изключение, по време на извикването на конструктор, обектът не се създава, следователно и неговия деструктор не се извиква.
+
+```cpp
+class Data
+{
+public:
+    Data(int size1, int size2)
+    {
+        data1 = new int[size1];
+        data2 = new int[size2]; 
+        // if data2 throws, data1 will cause a memory leak, since ~Data() will not be called
+    }
+    ~Data()
+    {
+        delete[] data1;
+        delete[] data2;
+    }
+//...
+}
+```
+
+Във всички други случаи, ако се хвърли изключение, стековите обекти, създадени до този момент, ще бъдат унищожени, все едно scope-а е приключил там където е думата `throw`.
 
 ## Обобщение и още две приказки
 - Прилагането на тези специални методи е задължителен процес, когато един клас борави с динамична памет. Това изискване се среща като *Голямата Четворка* (ctor, copy ctor, operator=, dtor), или като *Rule of 3* (copy ctor, operator=, dtor). 
